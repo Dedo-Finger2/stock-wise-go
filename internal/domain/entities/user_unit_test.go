@@ -39,4 +39,15 @@ func Test_UserEntity(t *testing.T) {
 		}
 	})
 
+	t.Run("it should be adding the current date time to the user on creation", func(t *testing.T) {
+		user, err := entities.NewUserEntity("valid@email.com", "1234567")
+		if err != nil {
+			t.Errorf("Expected to not return an error, but got one instead: %s", err)
+		}
+
+		if user.CreatedAt == "" {
+			t.Error("Expected created at to be current date, but it's empty.")
+		}
+	})
+
 }
