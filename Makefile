@@ -8,13 +8,19 @@ test-config:
 	go test -v ./internal/config/
 
 test-unit:
-	go test -v ./internal/**/**/*_unit_test.go
+	for file in $(shell find ./internal -name '*_unit_test.go'); do \
+		go test -v $$file || exit 1; \
+	done
 
 test-e2e:
-	go test -v ./internal/**/**/*_e2e_test.go
+	for file in $(shell find ./internal -name '*_e2e_test.go'); do \
+		go test -v $$file || exit 1; \
+	done
 
 test-integration:
-	go test -v ./internal/**/**/*_integration_test.go
+	for file in $(shell find ./internal -name '*_integration_test.go'); do \
+		go test -v $$file || exit 1; \
+	done
 
 build:
 	go build -o ./bin/stockwise ./cmd/stock-wise/main.go
